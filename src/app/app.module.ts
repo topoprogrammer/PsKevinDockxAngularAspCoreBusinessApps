@@ -4,6 +4,7 @@ import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { DatePipe } from '@angular/common'
 import { HttpClient } from '@angular/common/http/src/client';
+import 'automapper-ts/dist/automapper';
 
 // import routing module
 import { AppRoutingModule } from './app-routing.module';
@@ -60,5 +61,17 @@ export class AppModule {
 
     // automapper mappings
 
+    automapper.createMap('TourFormModel', 'TourForCreation')
+      .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
+      .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
+      .forMember('bandid', function (opts) { opts.mapFrom('band'); });
+
+    automapper.createMap('TourFormModel', 'TourWithManagerForCreation')
+      .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) =>
+        { opts.ignore(); })
+      .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) =>
+        { opts.ignore(); })
+      .forMember('bandid', function (opts) { opts.mapFrom('band'); })
+      .forMember('managerid', function (opts) { opts.mapFrom('manager'); })
   }
 }
