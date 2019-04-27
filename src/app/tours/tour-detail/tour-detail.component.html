@@ -30,7 +30,7 @@
         show(s)</button>
     </div>
 
-    <app-shows *ngIf='tour && tour.shows && tour.shows.length'></app-shows>
+    <app-shows *ngIf='tour && tour.shows && tour.shows.length' [shows]="tour.shows"></app-shows>
   </div>
 
   <div class="panel-footer">
