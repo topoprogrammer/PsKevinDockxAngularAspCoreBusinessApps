@@ -1,0 +1,5 @@
+Module: Working with Resource Collections
+
+Chapter: Demo: Creating a Reusable Component for Adding a Show Clip Watched
+
+
