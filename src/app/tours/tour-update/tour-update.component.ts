@@ -7,7 +7,8 @@ import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common'
 import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
-
+import { TourForUpdate } from '../shared/tour-for-update.model';
+import { compare } from 'fast-json-patch';
 
 @Component({
   selector: 'app-tour-update',
@@ -20,6 +21,7 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
   private tour: Tour;
   private tourId: string;
   private sub: Subscription;
+  private originalTourForUpdate: TourForUpdate;
 
   constructor(private masterDataService: MasterDataService,
     private tourService: TourService,
@@ -46,6 +48,12 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
           .subscribe(tour => {
             this.tour = tour;
             this.updateTourForm();
+
+            this.originalTourForUpdate = automapper.map(
+              'TourFormModel',
+              'TourForUpdate',
+              this.tourForm.value);
+
           });
       }
     );
@@ -55,8 +63,7 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
     this.sub.unsubscribe();
   }
 
-  private updateTourForm(): void
-  {
+  private updateTourForm(): void {
     let datePipe = new DatePipe(navigator.language);
     let dateFormat = 'yyyy-MM-dd';
 
@@ -71,6 +78,23 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
   saveTour(): void {
     if (this.tourForm.dirty) {
       // TODO
+      // [
+      //   { op: "replace", path: "/description", value: "Updated description"}
+      //   {op: "replace", path: "/title", value: "Updated title"}
+      // ]
+
+      let changedTourForUpdate = automapper.map(
+        'TourFormModel',
+        'TourForUpdate',
+        this.tourForm.value);
+
+      let patchDocument = compare(this.originalTourForUpdate, changedTourForUpdate);
+
+      this.tourService.partiallyUpdateTour(this.tourId, patchDocument)
+        .subscribe(
+          () => {
+            this.router.navigateByUrl('/tours');
+          });
     }
-}
+  }
 }

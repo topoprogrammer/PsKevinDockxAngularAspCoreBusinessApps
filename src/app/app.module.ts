@@ -69,27 +69,25 @@ export class AppModule {
       .forMember('bandid', function (opts) { opts.mapFrom('band'); });
 
     automapper.createMap('TourFormModel', 'TourWithManagerForCreation')
-      .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) =>
-        { opts.ignore(); })
-      .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) =>
-        { opts.ignore(); })
+      .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
+      .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
       .forMember('bandid', function (opts) { opts.mapFrom('band'); })
       .forMember('managerid', function (opts) { opts.mapFrom('manager'); })
 
-      automapper.createMap('TourFormModel', 'TourWithShowsForCreation')
+    automapper.createMap('TourFormModel', 'TourWithShowsForCreation')
       .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
       .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
       .forMember('bandid', function (opts) { opts.mapFrom('band'); });
 
     automapper.createMap('TourFormModel', 'TourWithManagerAndShowsForCreation')
-      .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) =>
-      { opts.ignore(); })
-      .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) =>
-      { opts.ignore(); })
+      .forSourceMember('band', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
+      .forSourceMember('manager', (opts: AutoMapperJs.ISourceMemberConfigurationOptions) => { opts.ignore(); })
       .forMember('bandid', function (opts) { opts.mapFrom('band'); })
       .forMember('managerid', function (opts) { opts.mapFrom('manager'); })
 
-      automapper.createMap('ShowCollectionFormModelShowsArray',
+    automapper.createMap('ShowCollectionFormModelShowsArray',
       'ShowCollectionForCreation');
+
+    automapper.createMap('TourFormModel', 'TourForUpdate');
   }
 }
