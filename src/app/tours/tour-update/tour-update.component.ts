@@ -6,9 +6,10 @@ import { Band } from '../../shared/band.model';
 import { Subscription } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { DatePipe } from '@angular/common'
-import { FormBuilder, FormGroup, FormControl } from '@angular/forms';
+import { FormBuilder, FormGroup, FormControl, Validators } from '@angular/forms';
 import { TourForUpdate } from '../shared/tour-for-update.model';
 import { compare } from 'fast-json-patch';
+import { CustomValidators } from 'src/app/shared/custom-validators';
 
 @Component({
   selector: 'app-tour-update',
@@ -32,11 +33,11 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
   ngOnInit() {
     // define the tourForm (with empty default values)
     this.tourForm = this.formBuilder.group({
-      title: [''],
-      description: [''],
-      startDate: [],
-      endDate: []
-    });
+      title: ['', [Validators.required, Validators.maxLength(200)]],
+      description: ['', [Validators.required, Validators.maxLength(2000)]],
+      startDate: [, Validators.required],
+      endDate: [, Validators.required]
+    }, { validator: CustomValidators.StartDateBeforeEndDateValidator });
 
     // get route data (tourId)
     this.sub = this.route.params.subscribe(
@@ -64,7 +65,7 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
   }
 
   private updateTourForm(): void {
-    let datePipe = new DatePipe(navigator.language);
+    let datePipe = new DatePipe('en-US');
     let dateFormat = 'yyyy-MM-dd';
 
     this.tourForm.patchValue({
@@ -76,7 +77,7 @@ export class TourUpdateComponent implements OnInit, OnDestroy {
   }
 
   saveTour(): void {
-    if (this.tourForm.dirty) {
+    if (this.tourForm.dirty && this.tourForm.valid) {
       // TODO
       // [
       //   { op: "replace", path: "/description", value: "Updated description"}

@@ -1,5 +1,5 @@
-Module: Working with Resource Collections
+Module: Validating Data Across Client-server Borders
 
-Chapter: Demo: Creating a Reusable Component for Adding a Show Clip Watched
+Chapter: Demo: Supporting Property-level Validation (Client)
 
 
