@@ -1,7 +1,7 @@
 import { HttpEvent, HttpHandler, HttpInterceptor, HttpRequest, HttpResponse } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
-import { catchError  } from 'rxjs/operators';
+import { catchError } from 'rxjs/operators';
 import { HttpErrorResponse } from '@angular/common/http/src/response';
 import { GlobalErrorHandler } from './global-error-handler';
 
@@ -27,8 +27,13 @@ export class HandleHttpErrorInterceptor implements HttpInterceptor {
             this.globalErrorHandler.handleError(errorToLog);
           }
 
-          return of(new HttpResponse());
-
+          if (error.status === 422) {
+            // throw the error body
+            return Observable.throw(error.error);
+          }
+          else {
+            return of(new HttpResponse());
+          }
         })
       )
   }

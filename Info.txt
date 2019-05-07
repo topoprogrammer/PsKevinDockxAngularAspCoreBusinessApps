@@ -1,5 +1,7 @@
-Module: Validating Data Across Client-server Borders
+-------------------------Module: Validating Data Across Client-server Borders
 
-Chapter: Demo: Supporting Property-level Validation (Client)
+-------------------------Chapter: Demo: Supporting Property-level Validation (Client)
+
+Reporting errors finished, checar si funciona bien todo, validacion y reporte de vuelta del servidor
 
 
