@@ -1,7 +1,8 @@
--------------------------Module: Validating Data Across Client-server Borders
+-------------------------Module: Authorization: Securing the API
 
--------------------------Chapter: Demo: Supporting Property-level Validation (Client)
+-------------------------Chapter: Demo: Using Claims from the Access Token
 
 Reporting errors finished, checar si funciona bien todo, validacion y reporte de vuelta del servidor
 
 
+ng serve --ssl --ssl-key localhost.key  --ssl-cert localhost.crt

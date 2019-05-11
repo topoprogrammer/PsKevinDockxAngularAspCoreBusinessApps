@@ -4,7 +4,15 @@
 
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:44363/api/'
+  apiUrl: 'https://localhost:44363/api/',
+  openIdConnectSettings: {
+    authority: 'https://localhost:44371/',
+    client_id: 'tourmanagementclient',
+    redirect_uri: 'https://localhost:4200/signin-oidc',
+    scope: 'openid profile roles tourmanagementapi',
+    response_type: 'id_token token',
+    post_logout_redirect_uri: 'https://localhost:4200/',
+  }
 };
 
 /*

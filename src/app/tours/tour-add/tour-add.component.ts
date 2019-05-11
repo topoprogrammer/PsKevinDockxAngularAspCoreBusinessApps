@@ -8,6 +8,7 @@ import { Manager } from 'src/app/shared/manager.model';
 import { ShowSingleComponent } from '../show-single/show-single.component';
 import { CustomValidators } from 'src/app/shared/custom-validators';
 import { ValidationErrorHandler } from 'src/app/shared/validation-error-handler';
+import { OpenIdConnectService } from 'src/app/shared/open-id-connect.service';
 
 @Component({
   selector: 'app-tour-add',
@@ -19,12 +20,13 @@ export class TourAddComponent implements OnInit {
   public tourForm: FormGroup;
   bands: Band[];
   managers: Manager[];
-  private isAdmin: boolean = false;
+  private isAdmin: boolean = (this.openIdConnectService.user.profile.role === "Administrator");
 
   constructor(private masterDataService: MasterDataService,
     private tourService: TourService,
     private formBuilder: FormBuilder,
-    private router: Router) { }
+    private router: Router,
+    private openIdConnectService: OpenIdConnectService) { }
 
   ngOnInit() {
 
